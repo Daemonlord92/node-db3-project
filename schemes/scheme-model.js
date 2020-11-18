@@ -4,6 +4,9 @@ module.exports = {
     find,
     findById,
     findSteps,
+    add,
+    update,
+
 }
 
 //GET ROUTES
@@ -23,3 +26,22 @@ function findSteps(schemeId) {
         .join('schemes as s', 's.id', 'st.scheme_id')
         .select('s.scheme_name', 'st.step_number', 'st.instructions')
 }
+
+//ADD ROUTES
+
+function add(scheme) {
+    return db('schemes')
+        .insert(scheme)
+        .then(ids => {
+            return findById(ids[0])
+        })
+}
+
+//UPDATE ROUTES
+
+function update(id, changes){
+    return db('schemes')
+        .where({id})
+        .update(changes);
+}
+
