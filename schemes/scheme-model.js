@@ -6,7 +6,7 @@ module.exports = {
     findSteps,
     add,
     update,
-
+    remove
 }
 
 //GET ROUTES
@@ -39,9 +39,16 @@ function add(scheme) {
 
 //UPDATE ROUTES
 
-function update(id, changes){
+function update(changes, id){
     return db('schemes')
         .where({id})
         .update(changes);
 }
 
+//REMOVE ROUTES
+
+function remove(id) {
+    return db('schemes')
+        .where('id', id)
+        .del();
+}
